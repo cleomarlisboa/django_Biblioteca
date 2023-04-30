@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Biblioteca
+{% endblock%}
+
+{% block content %}
+    <h1>Biblioteca Local - Inicio</h1>
+    <p>Bem-vindo!</p>
+    <p> A biblioteca tem os seguintes registros:</p>
+    <ul>
+        <li><strong>Livros:</strong> {{ numLivros }}</li>
+        <li><strong>Cópias:</strong> {{ numLivrosFisicos }}</li>
+        <li><strong>Cópias disponíveis:</strong> {{ numLivrosFisicosDisponiveis }}</li>
+        <li><strong>Autores:</strong> {{ numAutores }}</li>
+    </ul>
+{% endblock %}

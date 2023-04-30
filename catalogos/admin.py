@@ -38,5 +38,4 @@ class LivroFisicoAdmin(admin.ModelAdmin):
 admin.site.register(Genero)
 # admin.site.register(LivroFisico)
 admin.site.register(Idioma)
-
 admin.site.register(Autor, AutorAdmin)
