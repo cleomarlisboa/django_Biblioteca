@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>autor: {{ autor }} </h1>
+<p>{{autor.dataNascimento}} - {% if autor.dataMorte %}{{autor.dataMorte}}{% endif %}</p>
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Livros</h4>
+
+<dl>
+{% for livro in autor.livro_set.all %}
+  <dt><a href="{% url 'livro-detalhe' livro.pk %}">{{livro}}</a> ({{livro.livrofisico_set.all.count}})</dt>
+  <dd>{{livro.sumario}}</dd>
+{% endfor %}
+</dl>
+
+</div>
+
+{% endblock %}

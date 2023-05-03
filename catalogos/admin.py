@@ -23,7 +23,7 @@ class LivroFisicoAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('livro', 'imprimir', 'id')
+            'fields': ('livro', 'publicacao', 'id')
         }),
         ('Disponibilidade', {
             'fields': ('status', 'dataDevolucao')

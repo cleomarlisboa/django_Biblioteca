@@ -36,7 +36,7 @@ class Livro(models.Model):
         return self.titulo
 
     def get_absolute_url(self):
-        return reverse('book-detail', args=[str(self.id)])
+        return reverse('livro-detalhe', args=[str(self.id)])
     
     def display_genero(self):
         return ', '.join(genero.nome for genero in self.genero.all()[:3])
@@ -47,7 +47,7 @@ class Livro(models.Model):
 class LivroFisico(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='ID exclusivo para este livro específico.')
     livro = models.ForeignKey('Livro', on_delete=models.SET_NULL, null=True)
-    imprimir = models.CharField(max_length=200)
+    publicacao = models.CharField(max_length=200)
     dataDevolucao= models.DateField(null=True, blank=True)
 
     SituacaoEmprestimo = (
@@ -81,7 +81,7 @@ class Autor(models.Model):
         ordering = ['nome', 'sobrenome']
 
     def get_absolute_url(self):
-        return reverse('author-detail', args=[str(self.id)])
+        return reverse('autor-detalhe', args=[str(self.id)])
 
     def __str__(self):
         return f'{self.nome}, {self.sobrenome}'
