@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 import uuid
+from django.contrib.auth.models import User
+from datetime import date
 
 class meuModelo(models.Model):
 
@@ -49,7 +51,8 @@ class LivroFisico(models.Model):
     livro = models.ForeignKey('Livro', on_delete=models.SET_NULL, null=True)
     publicacao = models.CharField(max_length=200)
     dataDevolucao= models.DateField(null=True, blank=True)
-
+    mutuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    
     SituacaoEmprestimo = (
         ('m', 'Manutenção'),
         ('o', 'Emprestado'),
@@ -70,6 +73,13 @@ class LivroFisico(models.Model):
 
     def __str__(self):
         return f'{self.id} ({self.livro.titulo})'
+    
+    @property
+    def esta_atrasado(self):
+        if self.dataDevolucao and date.today() > self.dataDevolucao:
+            return True
+        return False
+
 
 class Autor(models.Model):
     nome = models.CharField(max_length=100)

@@ -1,25 +1,34 @@
-from django.shortcuts import render
 from catalogos.models import Livro, Autor, LivroFisico, Genero
+from django.shortcuts import render
 from django.views import generic
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
+@login_required
 def index(request):
     numLivros = Livro.objects.all().count()
     numLivrosFisicos = LivroFisico.objects.all().count()
     numLivrosFisicosDisponiveis = LivroFisico.objects.filter(status__exact='a').count()
-
     numAutores = Autor.objects.count()
+
+    numVisitas = request.session.get('numVisitas', 0)
+    request.session['numVisitas'] = numVisitas + 1
 
     context = {
         'numLivros': numLivros,
         'numLivrosFisicos': numLivrosFisicos,
         'numLivrosFisicosDisponiveis': numLivrosFisicosDisponiveis,
         'numAutores': numAutores,
+        'numVisitas':numVisitas,
     }
 
     return render(request, 'index.html', context=context)
 
-class LivroListView(generic.ListView):
+class LivroListView(LoginRequiredMixin, generic.ListView):
+    # login_url = '/login/'
+    # redirect_field_name = 'redirect_to'
+
     model = Livro
     context_object_name = 'livrosLista'
     # queryset = Livro.objects.filter(titulo__icontains='a')[:5]
@@ -27,13 +36,13 @@ class LivroListView(generic.ListView):
     template_name = 'catalogos/livrosLista.html'
     paginate_by = 5
 
-class livroDetalheView(generic.DetailView):
+class livroDetalheView(LoginRequiredMixin, generic.DetailView):
     model = Livro
 
-class AutorListView(generic.ListView):
+class AutorListView(LoginRequiredMixin, generic.ListView):
     model = Autor
     paginate_by = 1
 
 
-class autorDetalheView(generic.DetailView):
+class autorDetalheView(LoginRequiredMixin, generic.DetailView):
     model = Autor

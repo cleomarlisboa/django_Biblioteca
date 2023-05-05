@@ -10,3 +10,7 @@ urlpatterns = [
 urlpatterns += [
     path('', RedirectView.as_view(url='/catalogos/')),
 ]
+
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+]

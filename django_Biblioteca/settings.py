@@ -122,3 +122,8 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
     constants.WARNING: 'alert-warning'
 }
+
+LOGIN_REDIRECT_URL = '/'
+
+#Email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

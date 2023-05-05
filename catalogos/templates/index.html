@@ -14,4 +14,7 @@
         <li><strong>Cópias disponíveis:</strong> {{ numLivrosFisicosDisponiveis }}</li>
         <li><strong>Autores:</strong> {{ numAutores }}</li>
     </ul>
+
+    <p>vocẽ visitou esta página {{ numVisitas }}{% if numVisitas == 1 %} vez{% else %} vezes{% endif %}.</p>
+
 {% endblock %}
