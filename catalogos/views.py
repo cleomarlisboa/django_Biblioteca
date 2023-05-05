@@ -1,18 +1,21 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from catalogos.models import Livro, Autor, LivroFisico, Genero
 from django.shortcuts import render
 from django.views import generic
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 @login_required
+#@permission_required('catalogos.verEmprestimos')
 def index(request):
     numLivros = Livro.objects.all().count()
     numLivrosFisicos = LivroFisico.objects.all().count()
     numLivrosFisicosDisponiveis = LivroFisico.objects.filter(status__exact='a').count()
     numAutores = Autor.objects.count()
 
-    numVisitas = request.session.get('numVisitas', 0)
+    numVisitas = request.session.get('numVisitas', 1)
     request.session['numVisitas'] = numVisitas + 1
 
     context = {
@@ -46,3 +49,20 @@ class AutorListView(LoginRequiredMixin, generic.ListView):
 
 class autorDetalheView(LoginRequiredMixin, generic.DetailView):
     model = Autor
+
+class EmprestimoPorUsuarioListView(LoginRequiredMixin, generic.ListView):
+    model = LivroFisico
+    template_name = 'catalogos/listaMutuarioLivro.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return LivroFisico.objects.filter(mutuario=self.request.user).filter(status__exact='e').order_by('dataDevolucao')
+
+class EmprestimosListView(LoginRequiredMixin, generic.ListView):
+    model = LivroFisico
+    template_name = 'catalogos/listaEmprestimos.html'
+    paginate_by = 10
+    permission_required = 'catalogos.verEmprestimos'
+    
+    def get_queryset(self):
+        return LivroFisico.objects.filter(status__exact='e').order_by('mutuario')

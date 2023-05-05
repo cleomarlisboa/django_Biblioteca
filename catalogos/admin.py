@@ -18,7 +18,7 @@ class LivroAdmin(admin.ModelAdmin):
 
 @admin.register(LivroFisico)
 class LivroFisicoAdmin(admin.ModelAdmin):
-    #list_display = ('livro', 'status', 'dataDevolucao')
+    #list_display = ('livro', 'status', 'mutuario', 'dataDevolucao', 'id)
     list_filter = ('status', 'dataDevolucao')
 
     fieldsets = (
@@ -26,7 +26,7 @@ class LivroFisicoAdmin(admin.ModelAdmin):
             'fields': ('livro', 'publicacao', 'id')
         }),
         ('Disponibilidade', {
-            'fields': ('status', 'dataDevolucao')
+            'fields': ('status', 'dataDevolucao', 'mutuario')
         }),
         )
 

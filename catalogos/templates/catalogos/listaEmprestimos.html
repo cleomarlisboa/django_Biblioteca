@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Livros emprestados</h1>
+
+    {% if perms.catalogos.verEmprestimos %}
+
+      {% if livrofisico_list %}
+      <ul>
+
+        {% for livrof in livrofisico_list %}
+        <li class="{% if livrof.esta_atrasado %}text-danger{% endif %}">
+          <a href="{% url 'livro-detalhe' livrof.livro.pk %}">{{livrof.livro.titulo}}</a> ({{ livrof.dataDevolucao }}) - {{livrof.mutuario}}
+        </li>
+        {% endfor %}
+      </ul>
+
+      {% else %}
+        <p>Não há livros emprestados.</p>
+      {% endif %}
+    {% else %}
+      <h2> usuário sem permissão para ver todos os livros emprestados</h2>
+    {% endif %}
+{% endblock %}

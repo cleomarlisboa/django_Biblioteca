@@ -55,8 +55,8 @@ class LivroFisico(models.Model):
     
     SituacaoEmprestimo = (
         ('m', 'Manutenção'),
-        ('o', 'Emprestado'),
-        ('a', 'Disponivel'),
+        ('e', 'Emprestado'),
+        ('d', 'Disponivel'),
         ('r', 'Reservado'),
     )
 
@@ -70,6 +70,7 @@ class LivroFisico(models.Model):
 
     class Meta:
         ordering = ['dataDevolucao']
+        permissions = (("fazerDevolucao", "definir livro como devolvido"),("verEmprestimos"," ver todos os emprestimos"))
 
     def __str__(self):
         return f'{self.id} ({self.livro.titulo})'
