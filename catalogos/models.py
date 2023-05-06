@@ -86,7 +86,7 @@ class Autor(models.Model):
     nome = models.CharField(max_length=100)
     sobrenome = models.CharField(max_length=100)
     dataNascimento = models.DateField(null=True, blank=True)
-    dataMorte = models.DateField('Morte', null=True, blank=True)
+    dataMorte = models.DateField('morte', null=True, blank=True)
 
     class Meta:
         ordering = ['nome', 'sobrenome']
