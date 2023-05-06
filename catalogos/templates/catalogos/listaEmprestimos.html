@@ -10,7 +10,7 @@
 
         {% for livrof in livrofisico_list %}
         <li class="{% if livrof.esta_atrasado %}text-danger{% endif %}">
-          <a href="{% url 'livro-detalhe' livrof.livro.pk %}">{{livrof.livro.titulo}}</a> ({{ livrof.dataDevolucao }}) - {{livrof.mutuario}}
+          <a href="{% url 'livro-detalhe' livrof.livro.pk %}">{{livrof.livro.titulo}}</a> ({{ livrof.dataDevolucao }}) - {{livrof.mutuario}} - {% if perms.catalogos.fazerDevolucao %}<a href="{% url 'bibliotecarioRenovarLivro' livrof.id %}">renovar</a>  {% endif %}
         </li>
         {% endfor %}
       </ul>

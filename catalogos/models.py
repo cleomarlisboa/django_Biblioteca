@@ -4,18 +4,18 @@ import uuid
 from django.contrib.auth.models import User
 from datetime import date
 
-class meuModelo(models.Model):
+# class meuModelo(models.Model):
 
-    meuCampo = models.CharField(max_length=20, help_text='digite meuCampo')
+#     meuCampo = models.CharField(max_length=20, help_text='digite meuCampo')
 
-    class Meta:
-        ordering = ['-meuCampo']
+#     class Meta:
+#         ordering = ['-meuCampo']
 
-    def get_absolute_url(self):
-        return reverse('model-detail-view', args=[str(self.id)])
+#     def get_absolute_url(self):
+#         return reverse('model-detail-view', args=[str(self.id)])
 
-    def __str__(self):
-        return self.my_field_name
+#     def __str__(self):
+#         return self.meuCampo
 
 class Genero(models.Model):
     nome = models.CharField(max_length=200, help_text='digite um genero de livro')
@@ -70,13 +70,13 @@ class LivroFisico(models.Model):
 
     class Meta:
         ordering = ['dataDevolucao']
-        permissions = (("fazerDevolucao", "definir livro como devolvido"),("verEmprestimos"," ver todos os emprestimos"))
+        permissions = (("fazerDevolucao", "definir livro como devolvido"),("verEmprestimos"," ver todos os emprestimos"),("acessoBibliotecario","acesso bibliotecario"))
 
     def __str__(self):
         return f'{self.id} ({self.livro.titulo})'
     
     @property
-    def esta_atrasado(self):
+    def estaAtrasado(self):
         if self.dataDevolucao and date.today() > self.dataDevolucao:
             return True
         return False
@@ -86,7 +86,7 @@ class Autor(models.Model):
     nome = models.CharField(max_length=100)
     sobrenome = models.CharField(max_length=100)
     dataNascimento = models.DateField(null=True, blank=True)
-    dataMorte = models.DateField('Morto', null=True, blank=True)
+    dataMorte = models.DateField('Morte', null=True, blank=True)
 
     class Meta:
         ordering = ['nome', 'sobrenome']

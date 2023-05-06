@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Renovar: {{ livrofisico.livro.titulo }}</h1>
+  <p>Mutuário: {{ livrofisico.mutuario }}</p>
+  <p{% if livrofisico.estaAtrasado %} class="text-danger"{% endif %}>Data Devolucao: {{ livrofisico.dataDevolucao }}</p>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Enviar">
+  </form>
+{% endblock %}

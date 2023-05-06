@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Excluir Autor</h1>
+
+<p>Confirma exclusão do autor: {{ autor }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="sim, Excluir">
+</form>
+
+{% endblock %}
