@@ -4,18 +4,6 @@ import uuid
 from django.contrib.auth.models import User
 from datetime import date
 
-# class meuModelo(models.Model):
-
-#     meuCampo = models.CharField(max_length=20, help_text='digite meuCampo')
-
-#     class Meta:
-#         ordering = ['-meuCampo']
-
-#     def get_absolute_url(self):
-#         return reverse('model-detail-view', args=[str(self.id)])
-
-#     def __str__(self):
-#         return self.meuCampo
 
 class Genero(models.Model):
     nome = models.CharField(max_length=200, help_text='digite um genero de livro')
