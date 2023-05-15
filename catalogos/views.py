@@ -10,7 +10,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from catalogos.forms import LivroRenovacaoModelForm
 import datetime
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
+from .serializers import LivroSerializer
+from rest_framework import viewsets
 
 @login_required
 def index(request):
@@ -125,3 +126,9 @@ class LivroExcluir(LoginRequiredMixin, DeleteView):
     model = Livro
     success_url = reverse_lazy('livros')
     permission_required = 'catalogos.acessoBibliotecario'
+
+
+class LivroViewSet(viewsets.ModelViewSet):
+    queryset = Livro.objects.all()
+    serializer_class = LivroSerializer
+

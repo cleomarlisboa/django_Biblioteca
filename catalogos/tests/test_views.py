@@ -59,7 +59,6 @@ class EmprestimoPorUsuarioListViewTest(TestCase):
         userTeste2.save()
 
         autorTeste1 = Autor.objects.create(nome='Manoel', sobrenome='de Barros')
-        generoTeste1 = Genero.objects.create(nome='Suspense')
         idiomaTeste1 = Idioma.objects.create(nome='Portugues')
         livroTeste1 = Livro.objects.create(
             titulo='titulo do livro teste 1',
@@ -143,10 +142,11 @@ class EmprestimoPorUsuarioListViewTest(TestCase):
 
         self.assertEqual(len(response.context['listaEmprestimos']), 10)
 
-        last_date = 0
+        ultimaData = 0
         for livro in response.context['listaEmprestimos']:
-            if last_date == 0:
-                last_date = livro.dataDevolucao
+            if ultimaData == 0:
+                ultimaData = livro.dataDevolucao
             else:
-                self.assertTrue(last_date <= livro.dataDevolucao)
-                last_date = livro.dataDevolucao
+                self.assertTrue(ultimaData <= livro.dataDevolucao)
+                ultimaData = livro.dataDevolucao
+
